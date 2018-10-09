@@ -2,7 +2,7 @@
 ## How to play
 1. Download or clone the repository on your machine.
 2. Extract the .zip file
-3. Open index.html in your browser or [Click here](https://vattytrivedi.github.io/memory-game)
+3. Open index.html in your browser or [Click here](https://vattytrivedi.github.io/memory-game/)
 
 ## Rules and Regulations
 1. You have to match cards with identical face.
