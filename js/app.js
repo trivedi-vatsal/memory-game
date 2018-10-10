@@ -15,8 +15,6 @@ window.onload = function () {
                 sec = 0;
             }
             $('.timer').html(hours + ':' + min + ':' + sec);
-            console.log(min);
-            console.log(sec);
         }
 
     }, 1000);
@@ -73,17 +71,20 @@ function shuffle(array) {
 
 let moves = 0, stars = 3;
 
+//reset unmatched cards
 removeProperties = function (prop) {
     setTimeout(function () {
         prop.removeClass('show open animated pulse');
         openCards[0].removeClass('show open animated pulse');
         openCards = [];
-    }, 400);
+    }, 150);
 };
 
+//matching function
 showCard = function (clickEvent) {
     clickEvent.on('click', function () {
         moves++;
+        //star rating according to moves
         if (moves === 16) {
 
         } else if (moves > 16 && moves <= 25) {
@@ -97,31 +98,38 @@ showCard = function (clickEvent) {
             stars = 1;
         }
         $('.moves').html(moves);
+        //already matched cards
         if ((openCards.length % 2) === 0) {
             $(this).addClass('show open animated pulse');
             $(this).off('click');
             openCards.push($(this));
-        } else if (openCards.length !== 0) {
+        }
+        //cards are selected for matching
+        else if (openCards.length !== 0) {
             $(this).addClass('show open animated pulse');
             let self = $(this);
             for (let i = 0; i < openCards.length; i++) {
+                //if cards match
                 if (openCards[i].find('i').attr('class') === self.find('i').attr('class')) {
                     self.removeClass('animated pulse');
                     self.addClass('show match animated tada');
                     openCards[i].removeClass('animated pulse');
                     openCards[i].addClass('show match animated tada');
-                    console.log('match');
+                    //console.log('match');
                     $(this).off('click');
                     openCards = [];
                     break;
-                } else {
+                }
+                //cards don't match
+                else {
                     self.addClass('show open animated pulse');
                     removeProperties(self);
                     openCards[0].on('click', showCard(openCards[0]));
-                    console.log('no match');
+                    //console.log('no match');
                 }
             }
         }
+        //show modal if all the cards are matched
         if ($('.deck').find('.match').length === 16) {
             setTimeout(function () {
                 $('.deck').each(function () {
@@ -132,13 +140,13 @@ showCard = function (clickEvent) {
                         allowOutsideClick: false,
                         showCancelButton: true,
                         confirmButtonText: 'Play Again',
-                        confirmButtonColor: '#FFF',
+                        confirmButtonColor: '#0000FF',
                         cancelButtonText: 'Close',
-                        cancelButtonColor: '#FFF'
+                        cancelButtonColor: '#FF0000'
                     }).then(function () {
                         location.reload();
                     }, function (dismiss) {
-                        console.log('Yes');
+                        //console.log('Yes');
                     });
 
                 });
